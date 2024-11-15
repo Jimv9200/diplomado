@@ -12,7 +12,9 @@ public class FileEntity {
     private Long id;
     
 	private String fileName;
+	private String filePath;
     private String fileSign;
+    private String fileHash;
 
     public Long getId() {
         return id;
@@ -22,13 +24,20 @@ public class FileEntity {
         this.id = id;
     }
 
-    
 	public String getFileName() {
 		return fileName;
 	}
 	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 	
 	public String getFileSign() {
@@ -37,5 +46,13 @@ public class FileEntity {
 	
 	public void setFileSign(String fileSign) {
 		this.fileSign = fileSign;
+	}
+
+	public String getFileHash() {
+		return fileHash;
+	}
+
+	public void setFileHash(String fileHash) {
+		this.fileHash = fileHash;
 	}
 }

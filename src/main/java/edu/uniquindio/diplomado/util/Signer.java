@@ -14,6 +14,8 @@ import edu.uniquindio.diplomado.repositories.FileRepository;
 public class Signer {
 	@Autowired
     private FileRepository repository;
+    @Autowired
+    private FileManager fileManager;
 
 	public byte[] signFileWithPrivateKey(byte[] fileBytes, PrivateKey privateKey) throws Exception {
         Signature signature = Signature.getInstance("SHA256withRSA");
@@ -23,7 +25,7 @@ public class Signer {
     }
 	
 
-	public void signFileAndSaveWithPrivateKey(byte[] fileBytes, PrivateKey privateKey, String fileName) throws Exception {
+	public FileEntity signFileAndSaveWithPrivateKey(byte[] fileBytes, PrivateKey privateKey, String fileName) throws Exception {
         Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(privateKey);
         signature.update(fileBytes);
@@ -31,7 +33,10 @@ public class Signer {
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFileName(fileName);
         fileEntity.setFileSign(Base64.getEncoder().encodeToString(signature.sign()));
+        fileEntity.setFileHash(fileManager.getFileHash(fileBytes));
         
         repository.save(fileEntity);
+
+        return fileEntity;
     }
 }

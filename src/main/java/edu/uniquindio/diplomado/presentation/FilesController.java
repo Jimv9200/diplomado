@@ -3,6 +3,9 @@ package edu.uniquindio.diplomado.presentation;
 import java.security.PrivateKey;
 import java.util.Base64;
 
+import edu.uniquindio.diplomado.entities.FileEntity;
+import edu.uniquindio.diplomado.repositories.FileRepository;
+import edu.uniquindio.diplomado.util.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,10 @@ public class FilesController {
 	private PublicKeyCipher publicKeyCipher;
 	@Autowired
 	private Signer signer;
+    @Autowired
+    private FileManager fileManager;
+    @Autowired
+    private FileRepository fileRepository;
 	
 	@GetMapping("/sign")
     public ResponseEntity<String> signFile(
@@ -49,7 +56,10 @@ public class FilesController {
         try {
             PrivateKey privateKey = publicKeyCipher.getPrivateKeyFromBytes(privateKeyFile.getBytes());
 
-            signer.signFileAndSaveWithPrivateKey(file.getBytes(), privateKey, file.getName());
+            FileEntity fileEntity = signer.signFileAndSaveWithPrivateKey(file.getBytes(), privateKey, file.getName());
+
+            fileEntity.setFilePath(fileManager.saveFileToDisk(file));
+            fileRepository.save(fileEntity);
 
             return ResponseEntity.ok("File Sign saved ok");
 
