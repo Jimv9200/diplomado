@@ -6,14 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class KeyInfo {
+public class PublicKeyEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String value;
+	private String name;
+    private String publicKey;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -22,11 +22,19 @@ public class KeyInfo {
         this.id = id;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setName(String name) {
+        this.name = name;
     }
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
 }

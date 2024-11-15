@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.uniquindio</groupId>
-	<artifactId>diplomado-project</artifactId>
+	<artifactId>diplomado</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>diplomado-project</name>
+	<name>diplomado</name>
 	<description>Diplomado project</description>
 	<url/>
 	<licenses>

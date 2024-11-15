@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar Valor</title>
+</head>
+<body>
+    <h1>Enviar Valor</h1>
+    <form id="valueForm">
+        <label for="value">Ingresa un valor:</label>
+        <input type="text" id="value" name="value" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById('valueForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const value = document.getElementById('value').value;
+            
+            fetch('/api/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(value)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
